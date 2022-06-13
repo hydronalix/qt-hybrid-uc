@@ -233,8 +233,9 @@ void MainWindow::inputData(const QByteArray &data)
     QList<QString> dataNames;
     QList<QString> dataNums;
 
+    ///TODO: implement JSON parser
     //parse dataString
-    QRegExp rx("[: .]");
+    QRegExp rx("[: ]|(\r\n|\r|\n)");
     QStringList list = dataString.split(rx, Qt::SkipEmptyParts);
     for(int i = 0; i < list.size(); i++)
     {
