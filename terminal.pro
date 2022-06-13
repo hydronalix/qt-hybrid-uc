@@ -1,6 +1,7 @@
 QT += widgets serialport
 QT += widgets
 QT += core
+QT += core widgets
 requires(qtConfig(combobox))
 
 TARGET = terminal

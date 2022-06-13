@@ -55,18 +55,19 @@
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QPlainTextEdit>
+#include <QAbstractTableModel>
 
 QT_BEGIN_NAMESPACE
 
 class QLabel;
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 QT_END_NAMESPACE
 
-class Console;
+//class Console;
 class SettingsDialog;
 
 class MainWindow : public QMainWindow
@@ -85,31 +86,41 @@ private slots:
     void about();
     void writeData(const QByteArray &data);
     void readData();
-
     void handleError(QSerialPort::SerialPortError error);
+
+    void on_pushButton_clicked();
 
 private:
     void initActionsConnections();
 
-private:
     void showStatusMessage(const QString &message);
-    void inputWord(const QByteArray &data);
+    void inputData(const QByteArray &data);
 
     Ui::MainWindow *m_ui = nullptr;
     QLabel *m_status = nullptr;
-    QLabel *m_eValue = nullptr;
-    QLabel *m_sValue = nullptr;
-    QLabel *m_SpwmValue = nullptr;
-    QLabel *m_EpwmValue = nullptr;
-    QLabel *m_ErpmValue = nullptr;
-    QLabel *m_EstaValue = nullptr;
-    QLabel *m_staValue = nullptr;
-    QLabel *m_ch3Value = nullptr;
-    QLabel *m_RPMValue = nullptr;
-    QLabel *m_CANValue = nullptr;
-    Console *m_console = nullptr;
+    //Console *m_console = nullptr;
     SettingsDialog *m_settings = nullptr;
     QSerialPort *m_serial = nullptr;
+};
+
+class TestModel : public QAbstractTableModel //for tableView
+{
+    Q_OBJECT
+
+public:
+    TestModel(QObject *parent = 0);
+
+    void populateData(const QList<QString> &dataName,const QList<QString> &dataNum);
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+
+private:
+    QList<QString> tm_data_name;
+    QList<QString> tm_data_num;
 
 };
 
