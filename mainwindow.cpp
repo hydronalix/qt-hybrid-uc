@@ -84,6 +84,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
     connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
+    connect(m_ui->enableRelayBtn, &QCheckBox::stateChanged, this, &MainWindow::on_enableButton_clicked);
+    connect(m_ui->starterRelayBtn, &QCheckBox::stateChanged, this, &MainWindow::on_starterRelayButton_clicked);
+    connect(m_ui->starterPWMBtn, &QCheckBox::stateChanged, this, &MainWindow::on_starterPWMButton_clicked);
 
     //connect(m_console, &Console::getData, this, &MainWindow::writeData);
 
@@ -254,24 +257,36 @@ void MainWindow::inputData(const QByteArray &data)
 
 void MainWindow::on_pushButton_clicked()
 {
+//    QByteArray outputValue;
+//    QString dataString = "h";
+//    outputValue = dataString.toUtf8();
+//    writeData(outputValue);
+
+    m_ui->starterRelayBtn->setChecked(false);
+    m_ui->enableRelayBtn->setChecked(false);
+}
+
+void MainWindow::on_enableButton_clicked()
+{
     QByteArray outputValue;
-    if(buttonPress)
-    {
-        //turn off light on teensy
-        QString dataString = "lightOff";
-        outputValue = dataString.toUtf8();
-        writeData(outputValue);
-        m_ui->pushButton->setText("Turn on light");
-        buttonPress = false;
-    }
-    else
-    {
-        //turn on light on teensy
-        QString dataString = "lightOn";
-        outputValue = dataString.toUtf8();
-        writeData(outputValue);
-        m_ui->pushButton->setText("Turn off light");
-        buttonPress = true;
-    }
+    QString dataString = "e";
+    outputValue = dataString.toUtf8();
+    writeData(outputValue);
+}
+
+void MainWindow::on_starterRelayButton_clicked()
+{
+    QByteArray outputValue;
+    QString dataString = "s";
+    outputValue = dataString.toUtf8();
+    writeData(outputValue);
+}
+
+void MainWindow::on_starterPWMButton_clicked()
+{
+    QByteArray outputValue;
+    QString dataString = m_ui->starterPWMBtn->checkState() ? "o" : "i";
+    outputValue = dataString.toUtf8();
+    writeData(outputValue);
 }
 

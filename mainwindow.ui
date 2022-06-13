@@ -28,12 +28,40 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTableView" name="tableView"/>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTableView" name="tableView"/>
+      </item>
+      <item>
+       <widget class="QTableView" name="tableView_2"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="enableRelayBtn">
+      <property name="text">
+       <string>ECU Enable</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="starterRelayBtn">
+      <property name="text">
+       <string>Starter Enable</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="starterPWMBtn">
+      <property name="text">
+       <string>Starter PWM</string>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>Turn on light</string>
+       <string>STOP</string>
       </property>
      </widget>
     </item>
@@ -45,7 +73,7 @@
      <x>0</x>
      <y>0</y>
      <width>494</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCalls">

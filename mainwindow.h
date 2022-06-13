@@ -89,6 +89,9 @@ private slots:
     void handleError(QSerialPort::SerialPortError error);
 
     void on_pushButton_clicked();
+    void on_enableButton_clicked();
+    void on_starterRelayButton_clicked();
+    void on_starterPWMButton_clicked();
 
 private:
     void initActionsConnections();
